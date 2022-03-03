@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Adicionar Proxy | {{ block.super }}{% endblock title %}
+
+{% block content %}
+  <div class="col-xl-8 mx-auto">
+    <div class="card">
+      <form method="post">
+        {% csrf_token %}
+        <div class="card-header p-4">
+          <h1 class="mx-4">Adicionar Proxy</h1>
+        </div>
+        <div class="card-body mx-4">
+          {% include 'proxies/_proxy_form_fields.html' %}
+        </div>
+        <div class="card-footer d-flex flex-column flex-md-row p-4">
+          <button class="btn btn-primary ms-md-2 order-md-3" type="submit">Salvar</button>
+          <button class="btn btn-outline-primary mt-2 mt-md-0 order-md-2"
+                  type="submit" name="btn_save_and_add_another">Salvar e adicionar outro</button>
+          <a class="btn btn-link d-none d-md-block me-auto order-md-1" href="#">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock content %}

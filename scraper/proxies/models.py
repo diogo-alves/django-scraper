@@ -61,3 +61,6 @@ class Proxy(models.Model):
         """Texto que representa o objeto Proxy"""
         address = f'{self.protocol}://{self.ip_address}:{self.port}'
         return f'{address} ({self.country})'
+
+    def get_absolute_url(self):
+        return ''
