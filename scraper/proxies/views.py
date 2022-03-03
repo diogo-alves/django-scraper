@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 
 from .forms import ProxyForm
 from .models import Proxy
@@ -15,3 +15,9 @@ class ProxyCreateView(CreateView):
         if 'btn_save_and_add_another' in self.request.POST:
             url = reverse_lazy('proxies:proxy_create')
         return url
+
+
+class ProxyUpdateView(UpdateView):
+    model = Proxy
+    form_class = ProxyForm
+    template_name = 'proxies/proxy_update.html'
