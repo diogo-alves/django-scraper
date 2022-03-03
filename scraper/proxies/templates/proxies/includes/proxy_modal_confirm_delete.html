@@ -1,0 +1,22 @@
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content shadow">
+      <form method="POST" action="">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h3 class="modal-title text-capitalize">Excluir Proxy?</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Deseja mesmo excluir o proxy <strong class="object-description"></strong>?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-link" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger">
+            <strong>Sim, excluir</strong>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

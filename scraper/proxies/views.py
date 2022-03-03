@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, DeleteView, UpdateView
 from django_tables2 import SingleTableView
 
 from .forms import ProxyForm
@@ -31,3 +31,8 @@ class ProxyListView(SingleTableView):
     model = Proxy
     table_class = ProxyTable
     template_name = 'proxies/proxy_list.html'
+
+
+class ProxyDeleteView(DeleteView):
+    model = Proxy
+    success_url = reverse_lazy('proxies:proxy_list')

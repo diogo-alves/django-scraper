@@ -162,4 +162,4 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 # https://django-tables2.readthedocs.io/en/latest/pages/custom-rendering.html
 
 DJANGO_TABLES2_TEMPLATE = 'django_tables2/bootstrap5.html'
-DJANGO_TABLES2_PAGE_RANGE = 2
+DJANGO_TABLES2_PAGE_RANGE = 10

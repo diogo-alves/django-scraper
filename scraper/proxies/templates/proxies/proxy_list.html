@@ -21,7 +21,10 @@
           </div>
         </div>
       </div>
-      <div class="card-body mx-4">{% render_table table %}</div>
+      <div class="card-body mx-4">
+        {% render_table table %}
+        {% include "proxies/includes/proxy_modal_confirm_delete.html" %}
+      </div>
     </div>
   {% else %}
     <div class="p-5 mb-5 bg-transparent text-center">
@@ -36,3 +39,8 @@
     </div>
   {% endif %}
 {% endblock content %}
+
+{% block javascript %}
+  {{ block.super }}
+  <script src="{% static 'js/delete.js' %}"></script>
+{% endblock javascript %}

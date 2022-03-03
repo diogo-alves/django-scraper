@@ -4,7 +4,6 @@ from .models import Proxy
 
 
 class ProxyTable(tables.Table):
-    id = tables.Column(linkify=True)
     ip_address = tables.Column(linkify=True)
     port = tables.Column(linkify=True)
     protocol = tables.Column(linkify=True)
@@ -15,11 +14,14 @@ class ProxyTable(tables.Table):
     uptime = tables.Column(linkify=True)
     response = tables.Column(linkify=True)
     transfer = tables.Column(linkify=True)
+    actions = tables.TemplateColumn(
+        template_name='proxies/proxy_list_actions.html',
+        orderable=False,
+    )
 
     class Meta:
         model = Proxy
         fields = (
-            'id',
             'ip_address',
             'port',
             'protocol',

@@ -130,3 +130,15 @@ class TestProxyListView:
         response = client.get(url)
         object_list = response.context.get('object_list')
         assert len(object_list) == 2
+
+
+class TestProxDeleteView:
+    def test_delete(self, client, proxy):
+        url = reverse('proxies:proxy_delete', kwargs={'pk': proxy.pk})
+        client.post(url, follow=True)
+        assert Proxy.objects.count() == 0
+
+    def test_redirect_after_delete(self, client, proxy):
+        url = reverse('proxies:proxy_delete', kwargs={'pk': proxy.pk})
+        response = client.post(url)
+        assert response['location'] == reverse('proxies:proxy_list')
