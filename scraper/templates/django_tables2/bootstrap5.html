@@ -1,0 +1,161 @@
+{% load django_tables2 %}
+{% load i18n %}
+
+{% block table-wrapper %}
+  <div class="table-responsive">
+    {% block table %}
+      {% if table.data %}
+        <table id="tableList" {% render_attrs table.attrs class="table table-striped table-hover" %}>
+
+          {% block table.thead %}
+          {% if table.show_header %}
+            <thead {{ table.attrs.thead.as_html }}>
+            <tr>
+            {% for column in table.columns %}
+              <th {{ column.attrs.th.as_html }}>
+              {% if column.orderable %}
+                <a href="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}"
+                   class="text-reset text-decoration-none text-nowrap">
+                  {{ column.header }}
+                  {% if column.is_ordered %}
+                    <i class="bi bi-arrow-{% if column.order_by_alias.is_descending %}down{% else %}up{% endif %}"></i>
+                  {% else %}
+                    <i class="bi bi-arrow-down-up"></i>
+                  {% endif %}
+                </a>
+              {% else %}
+                {{ column.header }}
+              {% endif %}
+              </th>
+            {% endfor %}
+            </tr>
+            </thead>
+          {% endif %}
+          {% endblock table.thead %}
+
+          {% block table.tbody %}
+            <tbody {{ table.attrs.tbody.as_html }}>
+              {% for row in table.paginated_rows %}
+                {% block table.tbody.row %}
+                  <tr scope="row" {{ row.attrs.as_html }}>
+                    {% for column, cell in row.items %}
+                      <td {{ column.attrs.td.as_html }}>
+                        {% if column.localize == None %}
+                          {{ cell }}
+                        {% else %}{% if column.localize %}
+                          {{ cell|localize }}
+                        {% else %}
+                          {{ cell|unlocalize }}
+                        {% endif %}
+                        {% endif %}
+                      </td>
+                    {% endfor %}
+                  </tr>
+                {% endblock table.tbody.row %}
+              {% endfor %}
+            </tbody>
+          {% endblock table.tbody %}
+
+          {% block table.tfoot %}
+            {% if table.has_footer %}
+              <tfoot {{ table.attrs.tfoot.as_html }}>
+                <tr>
+                {% for column in table.columns %}
+                  <td {{ column.attrs.tf.as_html }}>{{ column.footer }}</td>
+                {% endfor %}
+                </tr>
+              </tfoot>
+            {% endif %}
+          {% endblock table.tfoot %}
+
+        </table>
+      {% else %}
+        {% block table.tbody.empty_text %}
+          {% if table.empty_text %}
+            <h4 class="text-muted text-center text-lg-left">{{ table.empty_text }}</h4>
+          {% else %}
+            <h4 class="text-muted text-center text-lg-left">Nenhum {{ table.data.verbose_name }} encontrado.</h4>
+          {% endif %}
+        {% endblock table.tbody.empty_text %}
+      {% endif %}
+    {% endblock table %}
+
+    {% block pagination %}
+      {% if table.page and table.paginator.num_pages > 1 %}
+        <nav aria-label="Table navigation">
+          <div class="d-flex align-items-center justify-content-center mb-n2">
+
+            {% block pagination.summary %}
+              <ul class="list-unstyled flex-grow-1 d-none d-lg-block">
+                <li class="text-muted">
+                  {% if table.page.start_index != table.paginator.count %}
+                    Exibindo {{ table.page.start_index }} a {{ table.page.end_index }} de {{ table.paginator.count }} {{ table.data.verbose_name_plural }}
+                  {% else %}
+                    Exibindo {{ table.data.verbose_name }} {{ table.page.end_index }} de {{ table.paginator.count }}
+                  {% endif %}
+                </li>
+              </ul>
+            {% endblock pagination.summary %}
+
+            <ul class="pagination">
+              {% block pagination.previous %}
+              {% if table.page.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="{% querystring table.prefixed_page_field=table.page.previous_page_number %}" title="Anterior">
+                    <div class="d-flex">
+                      <span>&laquo;</span>
+                      <span class="d-none d-lg-block ms-1">Anterior</span>
+                    </div>
+                  </a>
+                </li>
+              {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" tabindex="-1" aria-disabled="true" title="Anterior">
+                    <div class="d-flex">
+                      <span>&laquo;</span>
+                      <span class="d-none d-lg-block ms-1">Anterior</span>
+                    </div>
+                  </a>
+                </li>
+              {% endif %}
+              {% endblock pagination.previous %}
+
+              {% block pagination.range %}
+                {% if table.page.has_previous or table.page.has_next %}
+                  {% for p in table.page|table_page_range:table.paginator %}
+                    <li class="page-item{% if table.page.number == p %} active{% endif %}">
+                      <a class="page-link" {% if p != '...' %}href="{% querystring table.prefixed_page_field=p %}"{% endif %} title="Página {{ p }}">{{ p }}</a>
+                    </li>
+                  {% endfor %}
+                {% endif %}
+              {% endblock pagination.range %}
+
+              {% block pagination.next %}
+                {% if table.page.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="{% querystring table.prefixed_page_field=table.page.next_page_number %}" title="Pŕoxima">
+                      <div class="d-flex">
+                        <span class="d-none d-lg-block me-1">Próxima</span>
+                        <span>&raquo;</span>
+                      </div>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true" title="Próxima">
+                      <div class="d-flex">
+                        <span class="d-none d-lg-block me-1">Próxima</span>
+                        <span>&raquo;</span>
+                      </div>
+                    </a>
+                  </li>
+                {% endif %}
+              {% endblock pagination.next %}
+            </ul>
+
+          </div>
+        </nav>
+      {% endif %}
+    {% endblock pagination %}
+  </div>
+{% endblock table-wrapper %}

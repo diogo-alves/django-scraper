@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load django_tables2 %}
+
+{% block title %}Lista de Proxies | {{ block.super }}{% endblock %}
+
+{% block content %}
+  {% if object_list %}
+    <div class="card">
+      <div class="card-header p-4">
+        <div class="d-flex flex-column flex-lg-row align-items-md-end mx-4">
+          <h1 class="card-title me-auto">Proxies</h1>
+          <div class="d-flex">
+            <div class="flex-fill">
+              <a class="btn btn-primary btn-block" href="{% url 'proxies:proxy_create' %}">
+                <i class="bi bi-plus-lg" aria-hidden="true"></i>
+                <span>Novo Proxy</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body mx-4">{% render_table table %}</div>
+    </div>
+  {% else %}
+    <div class="p-5 mb-5 bg-transparent text-center">
+      <div class="container-fluid py-5">
+        <h2 class="jumbotron-heading">Cadastre um novo proxy</h2>
+        <p class="lead text-muted">Está meio vazio aqui. Clique no botão abaixo para cadastrar um proxy.</p>
+        <a class="btn btn-primary" href="{% url 'proxies:proxy_create' %}">
+          <i class="bi bi-plus-lg" aria-hidden="true"></i>
+          <span>Novo Proxy</span>
+        </a>
+      </div>
+    </div>
+  {% endif %}
+{% endblock content %}

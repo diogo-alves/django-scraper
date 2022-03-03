@@ -22,6 +22,38 @@ def proxy(db):
     )
 
 
+@pytest.fixture
+def proxies(db):
+    Proxy.objects.bulk_create(
+        [
+            Proxy(
+                ip_address='170.155.5.235',
+                port=8080,
+                protocol=Proxy.ProtocolType.HTTP,
+                anonymity=None,
+                country='Argentina',
+                region='Buenos Aires',
+                city='Moron',
+                uptime=62.1,
+                response=94,
+                transfer=69,
+            ),
+            Proxy(
+                ip_address='201.218.146.24',
+                port=999,
+                protocol=Proxy.ProtocolType.HTTP,
+                anonymity=None,
+                country='Peru',
+                region='Arequipa',
+                city='Arequipa',
+                uptime=17.3,
+                response=92,
+                transfer=74,
+            ),
+        ]
+    )
+
+
 class TestProxyCreateView:
     url = reverse('proxies:proxy_create')
 
@@ -80,3 +112,21 @@ class TestProxyUpdateView:
         proxy_updated = Proxy.objects.get(pk=proxy.pk)
         assert response.status_code == HTTPStatus.OK
         assert proxy_updated.uptime == uptime_value
+
+
+class TestProxyListView:
+    def test_get_response(self, client, proxies):
+        url = reverse('proxies:proxy_list')
+        response = client.get(url)
+        assert response.status_code == HTTPStatus.OK
+
+    def test_template_used(self, client, proxies):
+        url = reverse('proxies:proxy_list')
+        response = client.get(url)
+        assert 'proxies/proxy_list.html' in response.template_name
+
+    def test_objects_returned(self, client, proxies):
+        url = reverse('proxies:proxy_list')
+        response = client.get(url)
+        object_list = response.context.get('object_list')
+        assert len(object_list) == 2
