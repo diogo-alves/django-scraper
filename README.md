@@ -22,7 +22,7 @@ Este projeto está disponível para acesso no [Heroku](https://django-proxies-sc
 - [Poetry](https://python-poetry.org/docs/#installation)
 - [Make](https://www.gnu.org/software/make/)¹
 
-¹ **NOTA**: A maioria das distribuições linux já disponibilizam o `Make` por padrão. Clique [aqui](http://gnuwin32.sourceforge.net/packages/make.htm) para baixar a versão para Windows.
+¹ **NOTA**: A maioria das distribuições linux já disponibiliza o `Make` por padrão. Clique [aqui](http://gnuwin32.sourceforge.net/packages/make.htm) para baixar a versão para Windows.
 
 ### Configuração
 
@@ -63,16 +63,6 @@ make local
 
 ```shell
 make docker
-```
-
-### Testes
-
-```shell
-make tests-local
-```
-ou
-```shell
-make tests-docker
 ```
 
 ## Raspagem de Dados
