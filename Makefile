@@ -64,3 +64,12 @@ lint: ## Executa linters
 	@ echo "Executando linters..."
 	${RUNNER} pre-commit run --all-files
 
+
+## @ Tests
+.PHONY: tests-local tests-docker
+tests-local: ## Executa testes localmente
+	@ echo "Executando testes..."
+	${RUNNER} pytest .
+tests-docker: ## Executa testes no docker
+	@ echo "Executando testes..."
+	docker-compose exec web pytest .
