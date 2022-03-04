@@ -21,18 +21,15 @@ class TestProxyForm:
             'protocol',
             'anonymity',
             'country',
-            'region',
             'city',
-            'uptime',
-            'response',
-            'transfer',
+            'speed',
         ]
 
     def test_required_fields(self, proxy_form):
         assert proxy_form.fields['ip_address'].required
         assert proxy_form.fields['port'].required
         assert proxy_form.fields['protocol'].required
-        assert proxy_form.fields['country'].required
-        assert proxy_form.fields['uptime'].required
-        assert proxy_form.fields['response'].required
-        assert proxy_form.fields['transfer'].required
+        assert not proxy_form.fields['country'].required
+        assert not proxy_form.fields['city'].required
+        assert not proxy_form.fields['speed'].required
+        assert not proxy_form.fields['anonymity'].required

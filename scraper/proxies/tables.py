@@ -6,14 +6,11 @@ from .models import Proxy
 class ProxyTable(tables.Table):
     ip_address = tables.Column(linkify=True)
     port = tables.Column(linkify=True)
-    protocol = tables.Column(linkify=True)
-    anonymity = tables.Column(linkify=True)
     country = tables.Column(linkify=True)
-    region = tables.Column(linkify=True)
     city = tables.Column(linkify=True)
-    uptime = tables.Column(linkify=True)
-    response = tables.Column(linkify=True)
-    transfer = tables.Column(linkify=True)
+    speed = tables.Column(linkify=True)
+    protocol = tables.Column(linkify=True, verbose_name='Type')
+    anonymity = tables.Column(linkify=True)
     actions = tables.TemplateColumn(
         template_name='proxies/proxy_list_actions.html',
         orderable=False,
@@ -24,12 +21,9 @@ class ProxyTable(tables.Table):
         fields = (
             'ip_address',
             'port',
+            'country',
+            'city',
+            'speed',
             'protocol',
             'anonymity',
-            'country',
-            'region',
-            'city',
-            'uptime',
-            'response',
-            'transfer',
         )

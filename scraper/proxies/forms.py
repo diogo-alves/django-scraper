@@ -12,9 +12,6 @@ class ProxyForm(forms.ModelForm):
             'protocol',
             'anonymity',
             'country',
-            'region',
             'city',
-            'uptime',
-            'response',
-            'transfer',
+            'speed',
         )

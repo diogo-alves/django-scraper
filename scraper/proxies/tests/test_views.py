@@ -14,11 +14,8 @@ def proxy(db):
         protocol=Proxy.ProtocolType.HTTP,
         anonymity=None,
         country='Argentina',
-        region='Buenos Aires',
         city='Moron',
-        uptime=62.1,
-        response=94,
-        transfer=69,
+        speed=62,
     )
 
 
@@ -32,11 +29,8 @@ def proxies(db):
                 protocol=Proxy.ProtocolType.HTTP,
                 anonymity=None,
                 country='Argentina',
-                region='Buenos Aires',
                 city='Moron',
-                uptime=62.1,
-                response=94,
-                transfer=69,
+                speed=62,
             ),
             Proxy(
                 ip_address='201.218.146.24',
@@ -44,11 +38,8 @@ def proxies(db):
                 protocol=Proxy.ProtocolType.HTTP,
                 anonymity=None,
                 country='Peru',
-                region='Arequipa',
                 city='Arequipa',
-                uptime=17.3,
-                response=92,
-                transfer=74,
+                speed=13,
             ),
         ]
     )
@@ -72,11 +63,8 @@ class TestProxyCreateView:
             'protocol': Proxy.ProtocolType.HTTP,
             'anonymity': '',
             'country': 'Argentina',
-            'region': 'Buenos Aires',
             'city': 'Moron',
-            'uptime': 62.1,
-            'response': 94,
-            'transfer': 69,
+            'speed': 62,
         }
         response = client.post(self.url, data=payload, follow=True)
         assert response.status_code == HTTPStatus.OK
@@ -95,23 +83,20 @@ class TestProxyUpdateView:
 
     def test_update(self, client, proxy):
         url = reverse('proxies:proxy_update', kwargs={'pk': proxy.pk})
-        uptime_value = 90
+        speed_value = 90
         payload = {
             'ip_address': '170.155.5.235',
             'port': 8080,
             'protocol': Proxy.ProtocolType.HTTP,
             'anonymity': '',
             'country': 'Argentina',
-            'region': 'Buenos Aires',
             'city': 'Moron',
-            'uptime': uptime_value,
-            'response': 94,
-            'transfer': 69,
+            'speed': speed_value,
         }
         response = client.post(url, data=payload, follow=True)
         proxy_updated = Proxy.objects.get(pk=proxy.pk)
         assert response.status_code == HTTPStatus.OK
-        assert proxy_updated.uptime == uptime_value
+        assert proxy_updated.speed == speed_value
 
 
 class TestProxyListView:

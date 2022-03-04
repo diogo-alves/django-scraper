@@ -64,9 +64,9 @@ class Migration(migrations.Migration):
                     'city',
                     models.CharField(blank=True, max_length=100, null=True),
                 ),
-                ('uptime', scraper.proxies.models.PercentField()),
-                ('response', scraper.proxies.models.PercentField()),
-                ('transfer', scraper.proxies.models.PercentField()),
+                ('uptime', models.FloatField()),
+                ('response', models.FloatField()),
+                ('transfer', models.FloatField()),
             ],
             options={
                 'verbose_name_plural': 'proxies',
