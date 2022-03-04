@@ -18,7 +18,7 @@ from dj_database_url import parse as db_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-APPS_DIR = BASE_DIR / 'scraper'
+APPS_DIR = BASE_DIR / 'webapp'
 
 
 # Quick-start development settings - unsuitable for production
@@ -53,7 +53,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    'scraper.proxies.apps.ProxiesConfig',
+    'webapp.proxies.apps.ProxiesConfig',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
