@@ -1,3 +1,4 @@
 [flake8]
 exclude = .git, */migrations/*
-per-file-ignores = ./config/settings.py: E501
+per-file-ignores =
+    */settings.py:E501

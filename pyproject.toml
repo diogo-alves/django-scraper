@@ -17,6 +17,8 @@ whitenoise = "^6.0.0"
 pytest = "^7.0.1"
 pytest-django = "^4.5.2"
 django-tables2 = "^2.4.1"
+Scrapy = "^2.6.1"
+scrapy-djangoitem = "^1.1.1"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
