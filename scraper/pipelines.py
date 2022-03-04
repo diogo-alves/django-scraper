@@ -6,8 +6,10 @@
 
 # useful for handling different item types with a single interface
 # from itemadapter import ItemAdapter
+from webapp.proxies.models import Proxy
 
 
 class ScraperPipeline:
     def process_item(self, item, spider):
-        return item
+        obj, _ = Proxy.objects.get_or_create(**item)
+        return obj
