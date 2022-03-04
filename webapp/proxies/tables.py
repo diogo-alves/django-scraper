@@ -27,3 +27,4 @@ class ProxyTable(tables.Table):
             'protocol',
             'anonymity',
         )
+        per_page = 10

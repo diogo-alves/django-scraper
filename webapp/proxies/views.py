@@ -30,6 +30,7 @@ class ProxyUpdateView(UpdateView):
 class ProxyListView(SingleTableView):
     model = Proxy
     table_class = ProxyTable
+    paginate_orphans = 1
     template_name = 'proxies/proxy_list.html'
 
 
